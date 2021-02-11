@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/
 import os
 import logging.config
 from datetime import timedelta
+import dj_database_url 
 
 from .environment import env
 
@@ -106,7 +107,9 @@ WSGI_APPLICATION = "ngeo.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/#databases
 
-DATABASES = {"default": env.db("NGEO_DATABASE_URL")}
+# DATABASES = {"default": env.db("NGEO_DATABASE_URL")}
+
+
 
 
 # Password validation
@@ -273,6 +276,23 @@ SIMPLE_JWT = {
     "TOKEN_TYPE_CLAIM": "token_type",
 }
 
-import dj_database_url 
-prod_db  =  dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(prod_db)
+# prod_db  =  dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(prod_db)
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': env.str('DB_NAME'),
+        'USER': env.str('DB_USER'),
+        'PASSWORD': env.str('DB_PASSWORD'),
+        'HOST': env.str('DB_HOST'),
+        'PORT': env.str('DB_PORT')
+    }
+}
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
+DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
+
+GDAL_LIBRARY_PATH = env.str('GDAL_LIBRARY_PATH')
+GEOS_LIBRARY_PATH = env.str('GEOS_LIBRARY_PATH')
