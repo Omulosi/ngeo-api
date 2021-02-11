@@ -34,7 +34,8 @@ DEBUG = env.bool("NGEO_DEBUG")
 ALLOWED_HOSTS = env.list("NGEO_ALLOWED_HOSTS", default=[ 
                              "192.168.60.59",
                              "127.0.0.1",
-                             "0.0.0.0",])
+                             "0.0.0.0",
+                             "ngeo-api.herokuapp.com"])
 
 SECRET_KEY = env.str("NGEO_SECRET_KEY")
 
@@ -271,3 +272,7 @@ SIMPLE_JWT = {
     "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
     "TOKEN_TYPE_CLAIM": "token_type",
 }
+
+import dj_database_url 
+prod_db  =  dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(prod_db)

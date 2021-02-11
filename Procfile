@@ -1,0 +1,1 @@
+web: gunicorn ngeo.wsgi --log-file -
