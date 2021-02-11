@@ -107,7 +107,7 @@ WSGI_APPLICATION = "ngeo.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/#databases
 
-# DATABASES = {"default": env.db("NGEO_DATABASE_URL")}
+DATABASES = {"default": env.db("NGEO_DATABASE_URL")}
 
 
 
@@ -278,17 +278,6 @@ SIMPLE_JWT = {
 
 # prod_db  =  dj_database_url.config(conn_max_age=500)
 # DATABASES['default'].update(prod_db)
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': env.str('DB_NAME'),
-        'USER': env.str('DB_USER'),
-        'PASSWORD': env.str('DB_PASSWORD'),
-        'HOST': env.str('DB_HOST'),
-        'PORT': env.str('DB_PORT')
-    }
-}
 
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
