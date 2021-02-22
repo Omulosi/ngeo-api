@@ -1,1 +1,1 @@
-from .incidence import IncidenceList, IncidenceDetail
+from .incidence import IncidentList, IncidentDetail

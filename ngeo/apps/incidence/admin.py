@@ -1,11 +1,12 @@
 from django.contrib import admin
-from .models import Incidence
+from django.contrib.gis.admin import OSMGeoAdmin
+from .models import Incident
 
 
-class IncidenceAdmin(admin.ModelAdmin):
+class IncidentAdmin(OSMGeoAdmin):
     list_display = ("title", "date_reported", "location")
     search_fields = ("title",)
     filter_fields = ("title", "date_reported")
 
 
-admin.site.register(Incidence, IncidenceAdmin)
+admin.site.register(Incident, IncidentAdmin)

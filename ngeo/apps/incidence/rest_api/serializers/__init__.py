@@ -1,1 +1,1 @@
-from .incidence import IncidenceSerializer
+from .incidence import IncidentSerializer

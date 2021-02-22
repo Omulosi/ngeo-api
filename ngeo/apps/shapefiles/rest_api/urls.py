@@ -16,5 +16,6 @@ urlpatterns = [
     path("sublocations", SubLocationList.as_view(), name="sublocations"),
     re_path("^sublocations/name/(?P<sublocation_name>.+)/$", SubLocationName.as_view(), name="sublocationname"),
     path("isiolo_projects", IsioloProjectList.as_view(), name="isiolo_projects"),
+    path("isiolo_projects/<int:pk>", IsioloProjectDetail.as_view(), name="isiolo_project_detail"),
     path("isiolo_key_installations", IsioloKeyInstallationList.as_view(), name="isiolo_key_installations"),
 ]

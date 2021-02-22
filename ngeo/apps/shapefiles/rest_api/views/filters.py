@@ -12,12 +12,14 @@ class SublocationFilter(django_filters.FilterSet):
         model = SubLocation
         fields = {
             'locname': ['iexact', ],
-            'sub_name': ['iexact', ]
+            'sub_name': ['iexact', ],
+            
         }
 
 class ProjectFilter(django_filters.FilterSet):
     theme = django_filters.CharFilter(lookup_expr='iexact')
     fname = django_filters.CharFilter(lookup_expr='iexact')
+    id = django_filters.CharFilter(lookup_expr='iexact')
 
     class Meta:
         model = IsioloProject

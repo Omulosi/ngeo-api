@@ -1,1 +1,1 @@
-from .agent import AgentSerializer
+from .agent import AgentSerializer, AgentReturnSerializer
