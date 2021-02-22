@@ -69,7 +69,7 @@ INSTALLED_APPS = [
     "ngeo.apps.field_officer.apps.FieldOfficerConfig",
     "ngeo.apps.shapefiles.apps.ShapefilesConfig",
     "ngeo.apps.incidence.apps.IncidenceConfig",
-    "ngeo.apps.county_mananger.apps.CountyManagerConfig",
+    "ngeo.apps.county_manager.apps.CountyManagerConfig",
 ] + env.list("NGEO_DEV_INSTALLED_APPS", default=[])
 
 MIDDLEWARE = [
