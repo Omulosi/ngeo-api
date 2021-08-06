@@ -1,0 +1,53 @@
+version: "3"
+
+services:
+  postgis:
+    container_name: ngeo_db
+    image: kartoza/postgis
+    volumes:
+      - "../ngeo-api/api/data/db:/var/lib/postgresql"
+    environment:
+      - POSTGRES_DB=ngeo_db_a
+      - POSTGRES_USER=ngeo_db_a
+      - POSTGRES_PASSWORD=ngeo_db_a
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: "exit 0"
+    network_mode: host
+
+  api_ngeo:
+    container_name: ngeo_api
+    build:
+      context: ../ngeo-api
+      dockerfile: Dockerfile.api
+    depends_on:
+      - postgis
+    environment:
+      - NGEO_DATABASE_URL=postgis://ngeo_db_a:ngeo_db_a@192.168.60.109:5432/ngeo_db_b
+    ports:
+      - "8000:8000"
+    network_mode: host
+
+  geoserver:
+    container_name: ngeo_geoserver
+    image: kartoza/geoserver
+    volumes:
+      - "../geoserver/data_dir:/opt/geoserver/data_dir"
+    depends_on:
+      - postgis
+    environment:
+      - GEOSERVER_ADMIN_PASSWORD=geoserver
+      - GEOSERVER_ADMIN_USER=admin
+      - ALLOW_IP_RANGE=0.0.0.0/0
+    ports:
+      - "8080:8080"
+    restart: always
+    network_mode: host
+
+volumes:
+  geoserver-data:
+
+networks:
+  ngeo:
+    driver: bridge
